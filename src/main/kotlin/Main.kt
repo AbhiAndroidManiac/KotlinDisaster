@@ -6,26 +6,46 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main(args: Array<String>) {
-   runBlocking {
+
+
+//implementation and use case of Terminal operators
+/*   runBlocking {
        launch {
-           runFlow()
+           TerminalOperators.runFlow()
        }
-   }
-}
-suspend fun runFlow(){
-    //Terminal operator are the operators that actually start the flow
-    //by connecting the flow builder , operators to the collector
-    //collect is the basic Terminal operator
-    //You must write the terminal operator to start a flow
-    /*(1..5).asFlow()
-        .filter { it%2==0 }
-        .map { it*it }
-        .collect{
-            println(it.toString())
-        }*/
+   }*/
+    val list = listOf<String>("The","name","of","The","value","is","something","the")
 
-    //another terminal operator which runs a flow is reduce
-    val result = (1..5).asFlow().reduce{a,b->a+b}
-    println(result)
-
+    val result = itDoesSomething(list)
+    for ((key, value) in result) {
+        println("Key: $key, Value: $value")
+    }
+   /* val resultofsomething=itAlsoDoesSomething(list)
+    for (i in 0..(resultofsomething.size-1)){
+        println("Key: ${resultofsomething.get(i).first} , Value: ${resultofsomething.get(i).second}")
+    }*/
 }
+fun itAlsoDoesSomething(elements: List<String>) : List<Pair<String,Int>>{
+    return elements.groupBy {
+        it
+    }.map {
+        Pair(it.key,it.value.count())
+    }
+}
+//just finds the number of same elements in a list
+fun itDoesSomething(elements : List<String>):HashMap<String,Int>{
+    var i=0
+    val results = hashMapOf<String,Int>()
+    while (i<elements.size){
+        val element = results[elements[i]]
+        if (element!=null){
+            results[elements[i]] = element +1
+        } else {
+            results[elements[i]] = 1
+        }
+        i++
+    }
+    return results
+}
+
+

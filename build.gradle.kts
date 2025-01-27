@@ -114,5 +114,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("Solution_B")
 }
